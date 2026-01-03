@@ -45,6 +45,45 @@ A task is considered complete only if:
 
 - **[meta-role.md](general-rules/meta-role.md)** - Full-stack architect role and workflow. Defines the meta-process for task execution, coding standards, and communication style for AI agents.
 
+### Prompt Templates
+
+- **[prompts/README.md](prompts/README.md)** - Overview of the AI-Safe Prompting Toolset with usage guidelines and summary of all available prompts.
+
+- **[prompts/architect.md](prompts/architect.md)** - Master Architect prompt for designing new modules, components, or systems from scratch.
+
+- **[prompts/debugger.md](prompts/debugger.md)** - Forensic Debugger prompt for investigating complex bugs and identifying root causes.
+
+- **[prompts/refactor.md](prompts/refactor.md)** - Refactor Master prompt for cleaning up legacy or messy code while maintaining functional behavior.
+
+## AI-Safe Prompting Toolset
+
+This project includes a library of high-performance prompt templates designed for Senior-level AI interaction. These prompts enforce architectural integrity, rigorous debugging, and safe refactoring through structured multi-phase workflows.
+
+### Core Prompts
+
+| Prompt                | Purpose                                | File                                           |
+| --------------------- | -------------------------------------- | ---------------------------------------------- |
+| **Master Architect**  | New feature/module design from scratch | [`prompts/architect.md`](prompts/architect.md) |
+| **Forensic Debugger** | Root cause analysis for complex bugs   | [`prompts/debugger.md`](prompts/debugger.md)   |
+| **Refactor Master**   | Code quality & safety refactoring      | [`prompts/refactor.md`](prompts/refactor.md)   |
+
+### Usage
+
+Each prompt follows a phased approach with mandatory "STOP" checkpoints for human approval:
+
+1. **Phase 1 (Thinking):** Analysis and context gathering
+2. **Phase 2 (Multi-Perspective):** Alternative approaches and trade-offs
+3. **Phase 3 (Blueprint):** Detailed implementation plan
+4. **Phase 4 (Red-Teaming/Verification):** Self-critique and validation
+
+Example usage in Cursor:
+
+```
+"Analyze the following task: [DESCRIPTION]. Apply the **Master Architect Template**..."
+```
+
+See [`prompts/README.md`](prompts/README.md) for complete prompt templates and usage guidelines.
+
 ## Key Concepts
 
 ### Chain of Thought Structure
@@ -77,12 +116,17 @@ Every AI response must begin with a `<thinking>` block containing:
 
 ## Usage
 
-### For Cursor IDE
+### For Core Governance Rules
 
-1. Place these rules in your project's `.cursorrules` file or reference them via `@general-rules/`
-2. The AI will automatically follow the Architect-First philosophy and Chain of Thought protocol
-3. For high-risk operations, the AI will present a plan and wait for explicit approval
-4. All responses will include the mandatory thinking process before code implementation
+Place these rules in your project's `.cursorrules` file or reference them via `@general-rules/`. The AI will automatically follow the Architect-First philosophy and Chain of Thought protocol.
+
+### For Prompt Templates
+
+Reference specific prompts via `@prompts/` for targeted workflows:
+
+- **New Feature Design:** Use `@prompts/architect.md` for designing modules from scratch
+- **Bug Investigation:** Use `@prompts/debugger.md` for root cause analysis
+- **Code Refactoring:** Use `@prompts/refactor.md` for quality improvements
 
 ### Key Behaviors
 
@@ -96,13 +140,17 @@ Every AI response must begin with a `<thinking>` block containing:
 ```text
 coding-agent-rules/
 ├── README.md                 # This file
-└── general-rules/            # Core governance documents
-    ├── AI-GOVERNANCE.md      # Architectural framework
-    ├── ai-role.md            # Role definition and CoT enforcement
-    ├── enforce-cot.md        # Mandatory thinking process
-    └── meta-role.md          # Full-stack architect workflow
+├── general-rules/            # Core governance documents
+│   ├── AI-GOVERNANCE.md      # Architectural framework
+│   ├── ai-role.md            # Role definition and CoT enforcement
+│   └── enforce-cot.md        # Mandatory thinking process
+└── prompts/                  # AI-Safe Prompting Toolset
+    ├── README.md             # Prompt library overview
+    ├── architect.md          # Master Architect template
+    ├── debugger.md           # Forensic Debugger template
+    └── refactor.md           # Refactor Master template
 ```
 
 ---
 
-*Created to ensure sustainable and high-quality software engineering with AI.*
+_Created to ensure sustainable and high-quality software engineering with AI._
